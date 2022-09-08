@@ -1,0 +1,55 @@
+## Changed behaviour
+
+When a component mounts into the active render tree, it's useEffect (and useLayoutEffect) hooks are called twice in `DEVELOPMENT` mode when wrapped in `<StrictMode>`.
+
+It's not happening in `production` mode.
+
+Still you need to make sure that it works well in DEVELOPMENT mode, otherwise development will be messy.
+
+## But I still want to do thing on mount
+
+Bail out with a ref solution to create basically an useMount hook.
+
+- see useEffect talk by David K (xstate) https://www.youtube.com/watch?v=HPoC-k7Rxwo
+
+-> onMount kind off using a ref?
+
+- https://twitter.com/DavidKPiano/status/1533798980596940800
+
+## Demo
+
+- Show how useEffect runs twice in DEVELOPMENT mode when StrictMode is used.
+
+Maybe just use it without StrictMode? Because having different results for DEVELOPMENT and PRODUCTION is not a good idea?
+
+- Let people guess when useEffect runs (without a depedency array, with counter in the dependency array, with no dependency array)
+- Quiz when the cleanup function runs (see demo code)
+- Show that the state value in the cleanup function is still the old one
+- Show that a ref would be up to date, because it's the same object accross renders
+- Show what the idea is for useEffect (Websockt subscribe example)
+
+## Intro for the Exercise
+
+- Ask what's wrong with the exercise start version (don't tell the solution).
+
+Explain the issue
+
+1. fetch for Bob
+2. fetch for Taylor
+3. Taylor result is coming back
+4. Bob result is coming back
+
+## Exercise: Fix fetching inside an Effect
+
+Note: This exercise is directly taken from the beta docs: https://beta.reactjs.org/learn/synchronizing-with-effects.
+
+This component shows the biography for the selected person. It loads the biography by calling an asynchronous function `fetchBio(person)` on mount and whenever `person` changes. That asynchronous function returns a Promise which eventually resolves to a string. When fetching is done, it calls `setBio` to display that string under the select box.
+
+There is a bug in this code. Start by selecting “Alice”. Then select “Bob” and then immediately after that select “Taylor”. If you do this fast enough, you will notice that bug: Taylor is selected, but the paragraph below says “This is Bob’s bio.”
+
+Why does this happen? Fix the bug inside this Effect.
+
+## Resources
+
+- https://beta-reactjs-org-git-effects-fbopensource.vercel.app/learn/synchronizing-with-effects
+- https://twitter.com/dan_abramov/status/1530380704487559169?s=21&t=W-8Rl-G-WjZ47c2Fsj-i-w
