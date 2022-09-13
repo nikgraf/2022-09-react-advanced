@@ -9,7 +9,7 @@
 https://reactjs.org/docs/concurrent-mode-intro.html
 
 - Render a React tree in the background without blocking the current React tree due concurrent rendering.
-- Rendering is interruptable and can continued later on
+- Rendering is interruptable and can continued later on ‼️‼️
 
 Benefits:
 
@@ -24,8 +24,8 @@ Is this actually better? Yes, I didn't believe, but it is!
 
 ## New hooks
 
-- useTransition
 - useDeferredValue
+- useTransition
 
 - startTransition (for class components or where useTransition is not possible)
 

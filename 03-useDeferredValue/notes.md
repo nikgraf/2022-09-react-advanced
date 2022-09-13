@@ -2,9 +2,21 @@
 
 useDeferredValue(value) is hook that accepts a value and returns a new copy of the value that will defer to more urgent updates. The previous value is kept until urgent updates have completed. Then, the new value is rendered. This hook is similar to using debouncing or throttling to defer updates.
 
-https://medium.com/ovrsea/asynchronous-rendering-with-usedeferredvalue-ce7b3675151f
-Neat trick showing which one is stale: compare values
-That said it might get expensive with more complex values e.g. large nested objects.
+## Demo
+
+- explain the app without the useDeferredValue hook and show how it is lagging clicking the button
+- so ideally we can get rid of this lagging
+- useDeferredValue (& memo) to the rescue - with them we can deferre some rendering work
+- demonstrate how memo affects the performance
+- isPending!
+  -> https://medium.com/ovrsea/asynchronous-rendering-with-usedeferredvalue-ce7b3675151f
+  Neat trick showing which one is stale: compare values
+  That said it might get expensive with more complex values e.g. large nested objects.
+- what does it mean for re-rendering?
+  - App will render the at least once per state update, might do twice
+    -> see Dan's tweet reply
+  - still useEffect will only run once 🤯
+    -> goodbye predictable behaviour 👋
 
 ## Future usage
 

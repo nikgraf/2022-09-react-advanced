@@ -4,7 +4,13 @@ Generates a unique ID. Surpise :D
 
 !!! `useId` is not for generating keys in a list. Keys should be generated from your data.
 
-base 32 strings whose binary representation corresponds to the position of a node in a tree
+## But why not just Math.random?
+
+Super important to be able to reproduce the same key on the server and client. So if you refresh the page you will always get the same ID for the same element.
+
+## What are they?
+
+base 32 strings whose binary representation corresponds to the "position" and some form of mount count of a node in a tree
 
 ## Demo
 
@@ -24,10 +30,6 @@ Switch to
 ```ts
 const root = ReactDOM.createRoot(rootElement, { identifierPrefix: "yolo-" });
 ```
-
-## But why not just Math.random?
-
-Super important to be able to reproduce the same key on the server and client. So if you refresh the page you will always get the same ID for the same element.
 
 ## Resources
 

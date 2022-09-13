@@ -1,26 +1,28 @@
-import { useDeferredValue, useEffect, useState, memo } from "react";
+import { memo, useDeferredValue, useEffect, useState } from "react";
 
-const SlowUI = ({ value }: any) => (
-  <>
-    {Array(50000)
-      .fill(1)
-      .map((_, index) => (
-        <span key={index}>{100000} </span>
-      ))}
-    {value}
-  </>
-);
+const SlowUI = ({ value }: any) => {
+  console.log("render SlowUI", value);
+  // const t0 = performance.now();
+  const result = Array(50000)
+    .fill(1)
+    .map((_, index) => <span key={index}>{index + value} </span>);
+  // const t1 = performance.now();
+  // console.log(`Took ${t1 - t0} milliseconds.`);
+  return <>{result}</>;
+};
 
 const MemoedSlowUI = memo(SlowUI);
 
 function App() {
   const [value, setValue] = useState(0);
   const deferredValue = useDeferredValue(value);
+  // const deferredValue = value;
 
-  const isPendingValue = deferredValue !== value;
+  const isPending = deferredValue !== value;
+  console.log("render App", deferredValue, value, isPending);
 
   useEffect(() => {
-    console.log(value, deferredValue);
+    console.log("useEffect:", deferredValue, value, isPending);
   });
 
   return (
@@ -33,10 +35,14 @@ function App() {
         >
           {value}
         </button>
-        {isPendingValue ? <div>{"pending"}</div> : null}
+        <div>{deferredValue}</div>
+        {isPending ? <div>pending</div> : null}
       </div>
-      <div>DeferredValue: {deferredValue}</div>
-      <div>
+      <div
+        style={{
+          opacity: isPending ? 0.5 : 1,
+        }}
+      >
         <MemoedSlowUI value={deferredValue} />
       </div>
     </>

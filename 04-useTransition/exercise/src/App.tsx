@@ -1,46 +1,29 @@
-import { useState } from "react";
-import { faker } from "@faker-js/faker";
+import { Fragment, memo, useEffect, useState } from "react";
+import { text } from "./text";
 
-type NameProps = {
-  name: string;
-  highlight: string;
+const BookText = ({ highlight }: { highlight: string }) => {
+  if (highlight.length < 2) return <>{text}</>;
+
+  const content = text.split(highlight).map((textEntry) => {
+    return (
+      <Fragment>
+        {textEntry}
+        <span style={{ background: "yellow" }}>{highlight}</span>
+      </Fragment>
+    );
+  });
+
+  return <>{content}</>;
 };
 
-export const names = Array.from(Array(20000), () => {
-  return faker.name.findName();
-});
-
-const Name: React.FC<NameProps> = ({ name, highlight }) => {
-  const index = name.toLowerCase().indexOf(highlight.toLowerCase());
-  return (
-    <div>
-      {index === -1 ? (
-        <>{name}</>
-      ) : (
-        <>
-          {name.slice(0, index)}
-          <span style={{ background: "yellow" }}>
-            {name.slice(index, index + highlight.length)}
-          </span>
-          {name.slice(index + highlight.length)}
-        </>
-      )}
-    </div>
-  );
-};
-
-const Names = ({ query }: any) => {
-  return (
-    <>
-      {names.map((name, i) => (
-        <Name key={i} name={name} highlight={query} />
-      ))}
-    </>
-  );
-};
+const MemoedBookText = memo(BookText);
 
 function App() {
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    console.log(query);
+  });
 
   return (
     <div>
@@ -50,8 +33,10 @@ function App() {
         }}
         value={query}
         type="text"
+        style={{ fontSize: "3rem" }}
       />
-      <Names query={query} />
+      <br />
+      <MemoedBookText highlight={query} />
     </div>
   );
 }
