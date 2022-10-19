@@ -1,6 +1,66 @@
 ## Explain / demo
 
-## useEvent
+## use
+
+https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md
+https://github.com/reactjs/rfcs/pull/229
+
+What does really change?
+
+### Data fetching
+
+Before:
+
+```tsx
+const { data, isFetching} = useQuery(...);
+```
+
+After:
+
+```tsx
+// It suspends!
+const data = use(fetchQuery(...));
+```
+
+### Other "Usable" types
+
+Before:
+
+```tsx
+const theme = useThemeContext();
+```
+
+After:
+
+```tsx
+const theme = use(ThemeContext);
+```
+
+### Use can be used conditionally
+
+```tsx
+function Note({ id, shouldIncludeAuthor }) {
+  const note = use(fetchNote(id));
+
+  let byline = null;
+  if (shouldIncludeAuthor) {
+    const author = use(fetchNoteAuthor(note.authorId));
+    byline = <h2>{author.displayName}</h2>;
+  }
+
+  return (
+    <div>
+      <h1>{note.title}</h1>
+      {byline}
+      <section>{note.body}</section>
+    </div>
+  );
+}
+```
+
+### Let's wait for the `cache` RFC
+
+## useEvent (canceled?)
 
 https://typeofnan.dev/what-the-useevent-react-hook-is-and-isnt/
 
