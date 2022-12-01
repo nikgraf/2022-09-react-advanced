@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# This script finds every subfolder with package.json that is not under node_modules 
+# This list of subfolders then feeded into fuzzy finder https://github.com/junegunn/fzf
+
+if ! [ -x "$(command -v fzf)" ]; then
+    echo "fzf could not be found. Please follow installation guide at https://github.com/junegunn/fzf"
+    exit
+fi
+
+cd $(find . -type f -name "package.json" -not -path "*/node_modules/*" | sed s/package.json// | fzf)
+npx yarn install && npx yarn start
