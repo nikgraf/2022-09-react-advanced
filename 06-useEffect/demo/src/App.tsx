@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { updateStatement } from "typescript";
+import { useEffect, useState } from "react";
 
 // const SomeComponent: React.FC<{}> = () => {
 //   console.log("SomeComponent render");

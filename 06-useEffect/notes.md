@@ -1,20 +1,24 @@
-## Changed behaviour
+## UseEffect
 
-When a component mounts into the active render tree, it's useEffect (and useLayoutEffect) hooks are called twice in `DEVELOPMENT` mode when wrapped in `<StrictMode>`.
+The purpose is to manage side effects in React components.
 
-It's not happening in `production` mode.
+In the past it was mentally easier to graps using classes. Example:
 
-Still you need to make sure that it works well in DEVELOPMENT mode, otherwise development will be messy.
+```tsx
+class Something extends React.Component {
+  componentDidMount() {
+    // do something
+  }
 
-## But I still want to do thing on mount
+  render() {
+    return <div>Something</div>;
+  }
+}
+```
 
-Bail out with a ref solution to create basically an useMount hook.
+_IMPORTANT_: Most of the time you doing something wrong if you use useEffect. Avoid it at all cost. It's a last resort and it WILL cause bugs.
 
-- see useEffect talk by David K (xstate) https://www.youtube.com/watch?v=HPoC-k7Rxwo
-
--> onMount kind off using a ref?
-
-- https://twitter.com/DavidKPiano/status/1533798980596940800
+Need examples: https://github.com/penx/use-effect-cheatsheet
 
 ## Demo
 
@@ -27,6 +31,18 @@ Maybe just use it without StrictMode? Because having different results for DEVEL
 - Show that the state value in the cleanup function is still the old one
 - Show that a ref would be up to date, because it's the same object accross renders
 - Show what the idea is for useEffect (Websockt subscribe example)
+
+## Visualization
+
+https://github.com/donavon/hook-flow/blob/master/hook-flow.pdf
+
+## One Note on StrictMode
+
+When a component mounts into the active render tree, it's useEffect (and useLayoutEffect) hooks are called twice in `DEVELOPMENT` mode when wrapped in `<StrictMode>`.
+
+It's not happening in `production` mode.
+
+Still you need to make sure that it works well in DEVELOPMENT mode, otherwise development will be messy.
 
 ## Intro for the Exercise
 
