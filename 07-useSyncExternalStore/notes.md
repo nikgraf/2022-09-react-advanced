@@ -48,6 +48,8 @@ https://github.com/apollographql/apollo-client/pull/9709
 Example from here: https://betterprogramming.pub/5-new-hooks-in-react-18-300aa713cefe
 https://blog.logrocket.com/exploring-react-18-three-new-apis/
 
+## Exercise: refactor the useYScroll to use useSyncExternalStore
+
 ## Bonus Exercise: Use our own custom Store
 
 ## Bonus Exercise: extend the store to have selected fields
